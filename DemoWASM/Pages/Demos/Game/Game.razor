@@ -1,0 +1,30 @@
+﻿@page "/game"
+@attribute [Authorize]
+
+<h1>Gestion de Game</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="bubble">
+                <ListGame ShowDetailsParent="ShowDetails" ShowUpdateParent="ShowUpdate"></ListGame>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="bubble">
+                <AddGame></AddGame>
+            </div>
+
+            @if (ToShow == "details") {
+                <div class="bubble">
+                    <DetailsGame GameId="@ShowId"></DetailsGame>
+                </div>
+            } else if (ToShow == "update") {
+                <div class="bubble">
+                    <UpdateGame GameId="@ShowId"></UpdateGame>
+                </div>
+            }
+        </div>
+    </div>
+</div>

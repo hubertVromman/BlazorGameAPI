@@ -1,0 +1,19 @@
+﻿<EditForm Model="GameToUpdate" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <div>
+        Titre : <InputText @bind-Value="GameToUpdate.Title" />
+        <ValidationMessage For="() => GameToUpdate.Title" />
+    </div>
+
+    <div>
+        Année de sortie : <InputNumber @bind-Value="GameToUpdate.ReleaseYear" />
+        <ValidationMessage For="() => GameToUpdate.ReleaseYear" />
+    </div>
+
+    <div>
+        Synopsis : <InputText @bind-Value="GameToUpdate.Synopsis" />
+        <ValidationMessage For="() => GameToUpdate.Synopsis" />
+    </div>
+
+    <button class="btn btn-success btn-sm">Valider</button>
+</EditForm>

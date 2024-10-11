@@ -1,0 +1,22 @@
+﻿<h3>Ajouter un Game</h3>
+
+<EditForm Model="GameDTO" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <div>
+        Titre : <InputText @bind-Value="GameDTO.Title" />
+        <ValidationMessage For="() => GameDTO.Title" />
+    </div>
+
+    <div>
+        Année de sortie : <InputNumber @bind-Value="GameDTO.ReleaseYear" />
+        <ValidationMessage For="() => GameDTO.ReleaseYear" />
+    </div>
+
+    <div>
+        Synopsis : <InputText @bind-Value="GameDTO.Synopsis" />
+        <ValidationMessage For="() => GameDTO.Synopsis" />
+    </div>
+
+    <button class="btn btn-success btn-sm">Valider</button>
+</EditForm>
+
