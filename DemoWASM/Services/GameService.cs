@@ -8,6 +8,9 @@ using System.Reflection;
 namespace DemoWASM.Services {
     public class GameService(IJSRuntime JS, HttpClient Client) {
 
+        public delegate Task AsyncEventHandler();
+        public event AsyncEventHandler DataChanged;
+
         private async Task GetToken() {
             string token = await JS.InvokeAsync<string>("localStorage.getItem", "token");
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -25,12 +28,23 @@ namespace DemoWASM.Services {
 
         public async Task<HttpResponseMessage> Create(GameDTO game) {
             await GetToken();
-            return await Client.PostAsJsonAsync("Game", game);
-        }
-        public async Task<HttpResponseMessage> Update(GameDTO game) {
-            await GetToken();
-            return await Client.PutAsJsonAsync($"Game/{game.Id}", game);
+            HttpResponseMessage message = await Client.PostAsJsonAsync("Game", game);
+            await DataChanged?.Invoke();
+            return message;
         }
 
+        public async Task<HttpResponseMessage> Update(GameDTO game) {
+            await GetToken();
+            HttpResponseMessage message = await Client.PutAsJsonAsync($"Game/{game.Id}", game);
+            await DataChanged?.Invoke();
+            return message;
+        }
+
+        public async Task<HttpResponseMessage> Delete(int id) {
+            await GetToken();
+            HttpResponseMessage message = await Client.DeleteAsync($"Game/{id}");
+            await DataChanged?.Invoke();
+            return message;
+        }
     }
 }

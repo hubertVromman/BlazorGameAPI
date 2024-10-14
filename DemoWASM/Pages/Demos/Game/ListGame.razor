@@ -1,12 +1,11 @@
 ﻿<div class="container">
     <h3>Liste des Game</h3>
 
-    <button @onclick="LoadData">Recharger</button>
-
     @foreach (GameDTO g in GameList) {
         <p> @g.Title 
-            <button @onclick="() => ShowDetails(g.Id)">Détails</button> 
+            <button @onclick="() => ShowDetails(g.Id)">Détails</button>
             <button @onclick="() => ShowUpdate(g.Id)">Modifier</button>
+            <button @onclick="() => Delete(g.Id)">Supprimer</button>
         </p>
     }
 </div>
